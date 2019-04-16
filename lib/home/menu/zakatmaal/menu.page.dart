@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zakatax/home/menu/zakatmaal/zakatemasperak/zakatemas.page.dart';
+import 'package:zakatax/home/menu/zakatmaal/zakatemasperak/zakatperak.page.dart';
 import 'package:zakatax/home/menu/zakatmaal/zakatpertanian/zakathujan.page.dart';
 import 'package:zakatax/home/menu/zakatmaal/zakatpertanian/zakatirigasi.page.dart';
 import 'package:zakatax/home/menu/zakatmaal/zakatperusahaan/zakat.page.dart';
@@ -549,7 +551,12 @@ class _ZakatMaalPageState extends State<ZakatMaalPage> {
                           ),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return ZakatEmasPage();
+                        }));
+                      },
                     ),
                     InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -580,7 +587,12 @@ class _ZakatMaalPageState extends State<ZakatMaalPage> {
                           ),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return ZakatPerakPage();
+                        }));
+                      },
                     )
                   ],
                 ),
