@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zakatax/home/menu/zakatmaal/zakatperusahaan/zakat.page.dart';
+import 'package:zakatax/home/menu/zakatmaal/zakatpeternakan/zakatdomba.page.dart';
+import 'package:zakatax/home/menu/zakatmaal/zakatpeternakan/zakatsapi.page.dart';
+import 'package:zakatax/home/menu/zakatmaal/zakatpeternakan/zakatunta.page.dart';
 import 'package:zakatax/home/menu/zakatmaal/zakatprofesi/harta.page.dart';
 import 'package:zakatax/home/menu/zakatmaal/zakatprofesi/profesi.page.dart';
 
@@ -266,7 +269,12 @@ class _ZakatMaalPageState extends State<ZakatMaalPage> {
                           ),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return ZakatUntaPage();
+                        }));
+                      },
                     ),
                     InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -297,7 +305,12 @@ class _ZakatMaalPageState extends State<ZakatMaalPage> {
                           ),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return ZakatSapiPage();
+                        }));
+                      },
                     ),
                     InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -319,7 +332,7 @@ class _ZakatMaalPageState extends State<ZakatMaalPage> {
                                 ),
                               ),
                               Text(
-                                'Domba',
+                                'Kambing/Domba',
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600),
@@ -328,7 +341,12 @@ class _ZakatMaalPageState extends State<ZakatMaalPage> {
                           ),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return ZakatDombaPage();
+                        }));
+                      },
                     )
                   ],
                 ),
