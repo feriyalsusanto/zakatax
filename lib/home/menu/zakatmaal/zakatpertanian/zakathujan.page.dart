@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zakatax/home/util/NumberFormatUtil.dart';
+import 'package:zakatax/util/NumberFormatUtil.dart';
 
 class ZakatHujanSungaiPage extends StatefulWidget {
   @override

@@ -1,4 +1,4 @@
-import 'package:zakatax/home/util/string.util.dart';
+import 'package:zakatax/util/string.util.dart';
 
 class NumberFormatUtil {
   static String currencyFormat(int resource) {
