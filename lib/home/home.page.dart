@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zakatax/home/menu/menu.page.dart';
+import 'package:zakatax/home/setting/setting.page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return MenuPage();
       case 1:
-        return MenuPage();
+        return SettingPage();
 
       default:
         return new Text("Error");

@@ -9,6 +9,12 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.2
+  sqflite: ^1.1.5
+  path_provider: ^0.4.1
+  datetime_picker_formfield: ^0.1.8
+  image_picker: ^0.5.3+1
+  android_alarm_manager: ^0.4.1+6
+  flutter_local_notifications: ^0.6.1
 
 dev_dependencies:
   flutter_test:
@@ -22,5 +28,6 @@ flutter:
     - assets/ic_faq.png
     - assets/ic_farm.png
     - assets/ic_gold.png
+    - assets/ic_notepad.png
     - assets/ic_office.png
     - assets/ic_wheat.png
