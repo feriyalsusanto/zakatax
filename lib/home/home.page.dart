@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zakatax/home/history/list.page.dart';
 import 'package:zakatax/home/menu/menu.page.dart';
 import 'package:zakatax/home/setting/setting.page.dart';
 
@@ -12,6 +13,7 @@ class _HomePageState extends State<HomePage> {
 
   final drawerItems = [
     DrawerItem("Menu Zakat", Icons.book),
+    DrawerItem("History Zakat", Icons.list),
     DrawerItem("Pengaturan", Icons.settings)
   ];
 
@@ -23,6 +25,8 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return MenuPage();
       case 1:
+        return HistoryListPage();
+      case 2:
         return SettingPage();
 
       default:
@@ -39,6 +43,9 @@ class _HomePageState extends State<HomePage> {
           _title = 'Home';
           break;
         case 1:
+          _title = 'History';
+          break;
+        case 2:
           _title = 'Pengaturan';
           break;
       }
