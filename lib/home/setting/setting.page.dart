@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zakatax/home/setting/about/app.about.dart';
+import 'package:zakatax/home/setting/about/us.about.dart';
 
 import 'alarm/settingalarm.page.dart';
 
@@ -65,12 +67,21 @@ class SettingPage extends StatelessWidget {
           ),
           onTap: () {
             if (title.toLowerCase().contains('pengingat')) {
-
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) {
+                return SettingAlarmPage();
+              }));
+            } else if (title.toLowerCase().contains('aplikasi')) {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) {
+                return AboutAppPage();
+              }));
+            } else if (title.toLowerCase().contains('kami')) {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) {
+                return AboutUsPage();
+              }));
             }
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) {
-              return SettingAlarmPage();
-            }));
           },
         ),
         Divider(
