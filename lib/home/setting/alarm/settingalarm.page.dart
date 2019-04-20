@@ -2,6 +2,8 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zakatax/util/constant.util.dart';
 
 import '../../home.page.dart';
 
@@ -19,6 +21,8 @@ class _SettingAlarmPageState extends State<SettingAlarmPage> {
     InputType.time: DateFormat("HH:mm"),
   };
 
+  SharedPreferences prefs;
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +39,23 @@ class _SettingAlarmPageState extends State<SettingAlarmPage> {
     for (int x = 1; x < 32; x++) {
       dates.add('$x');
     }
+
+    Future.delayed(Duration.zero, () async {
+      prefs = await SharedPreferences.getInstance();
+      String savedDate = prefs.getString(Constant.ALARM_DATE_CONSTANT);
+      String savedTime = prefs.getString(Constant.ALARM_TIME_CONSTANT);
+      if (savedDate != null && savedTime != null) {
+        setState(() {
+          _selectedDate = savedDate;
+          date = DateTime(
+              DateTime.now().year,
+              DateTime.now().month,
+              DateTime.now().day,
+              int.parse(savedTime.split(':')[0]),
+              int.parse(savedTime.split(':')[1]));
+        });
+      }
+    });
   }
 
   String _selectedDate = 'Pilih Tanggal';
@@ -162,21 +183,40 @@ class _SettingAlarmPageState extends State<SettingAlarmPage> {
   }
 
   _setAlarm() async {
-    var scheduledNotificationDateTime =
-    new DateTime.now().add(new Duration(seconds: 5));
-    var androidPlatformChannelSpecifics =
-    new AndroidNotificationDetails('your other channel id',
-        'your other channel name', 'your other channel description');
-    var iOSPlatformChannelSpecifics =
-    new IOSNotificationDetails();
+    DateTime currentDate = DateTime.now();
+    var scheduledNotificationDateTime = new DateTime(currentDate.year,
+        currentDate.month, int.parse(_selectedDate), date.hour, date.minute);
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        'your other channel id',
+        'your other channel name',
+        'your other channel description');
+    print(scheduledNotificationDateTime.toIso8601String());
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     NotificationDetails platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.schedule(
-        90,
-        'scheduled title',
-        'scheduled body',
-        scheduledNotificationDateTime,
-        platformChannelSpecifics);
+
+    int id = 90;
+    int month = scheduledNotificationDateTime.month;
+    for (int i = currentDate.month; i < 13; i++) {
+      DateTime iDate = DateTime(
+          scheduledNotificationDateTime.year,
+          month,
+          scheduledNotificationDateTime.day,
+          scheduledNotificationDateTime.hour,
+          scheduledNotificationDateTime.minute);
+      print('scheduled $i : ${iDate.toIso8601String()}');
+      await flutterLocalNotificationsPlugin.schedule(
+          id,
+          'Alarm Zakat Bulanan',
+          'Hai, kamu waktunya untuk bayar zakat lho',
+          iDate,
+          platformChannelSpecifics);
+      month++;
+      id++;
+    }
+
+    prefs.setString(Constant.ALARM_DATE_CONSTANT, _selectedDate);
+    prefs.setString(Constant.ALARM_TIME_CONSTANT, _parseTime(date));
 
     _scaffoldKey.currentState
         .showSnackBar(SnackBar(content: Text('Berhasil mengatur alarm')));
