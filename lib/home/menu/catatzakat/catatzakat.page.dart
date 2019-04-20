@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:zakatax/util/database.util.dart';
+import 'package:zakatax/util/dateformat.util.dart';
+import 'package:zakatax/util/loader.util.dart';
+import 'package:zakatax/util/path.util.dart';
+import 'package:path/path.dart';
 
 class CatatZakatPage extends StatefulWidget {
   @override
@@ -17,6 +21,7 @@ class _CatatZakatPageState extends State<CatatZakatPage> {
 
   TextEditingController _totalController = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
+  TextEditingController _dateController = new TextEditingController();
 
   final dbHelper = DatabaseHelper.instance;
   final _formats = {InputType.date: DateFormat("yyyy-MM-dd")};
@@ -41,7 +46,9 @@ class _CatatZakatPageState extends State<CatatZakatPage> {
               padding: EdgeInsets.all(8.0),
               child: Icon(Icons.check),
             ),
-            onTap: _processZakat,
+            onTap: () {
+              _processZakat(context);
+            },
           )
         ],
       ),
@@ -73,14 +80,17 @@ class _CatatZakatPageState extends State<CatatZakatPage> {
                         val.isEmpty ? 'Field ini harus diisi' : null,
                   ),
                   DateTimePickerFormField(
+                    controller: _dateController,
                     inputType: InputType.date,
                     format: _formats[0],
                     editable: true,
                     decoration: InputDecoration(
-                        labelText: 'Tanggal', hasFloatingPlaceholder: false),
-                    onChanged: (dt) => setState(() => _date = dt),
-                    validator: (date) =>
-                        date == null ? 'Field ini harus diisi' : null,
+                        labelText: 'Tanggal', hasFloatingPlaceholder: true),
+                    onChanged: (dt) => setState(() {
+                          _date = dt;
+                          _dateController.text =
+                              DateFormatUtil.parseDateTimeLocal(_date);
+                        }),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 8.0),
@@ -102,19 +112,29 @@ class _CatatZakatPageState extends State<CatatZakatPage> {
                         border: Border.all(color: Colors.blue, width: 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(4.0))),
                     alignment: Alignment.center,
-                    child: Text(
-                      'PREVIEW FOTO',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w600),
-                    ),
+                    child: _generatePreview(),
                   )
                 ],
               )),
         ),
       ),
     );
+  }
+
+  _generatePreview() {
+    if (_image == null) {
+      return Text(
+        'PREVIEW FOTO',
+        style: TextStyle(
+            color: Colors.blue, fontSize: 12.0, fontWeight: FontWeight.w600),
+      );
+    } else {
+      return Image.file(
+        _image,
+        height: 240.0,
+        fit: BoxFit.cover,
+      );
+    }
   }
 
   Future _getImage() async {
@@ -128,32 +148,49 @@ class _CatatZakatPageState extends State<CatatZakatPage> {
     }
   }
 
-  _processZakat() {
+  _processZakat(BuildContext context) async {
     final FormState formState = _formState.currentState;
     if (!formState.validate()) {
     } else {
       formState.save();
-//      _insertData();
+
+      dialogLoader(context);
+
+      String filePath = await DirectoryPathUtil.getDirectoryPath();
+      File file = await _image.copy(filePath + '/' + basename(_image.path));
+      if (await file.exists()) {
+        print(file.path);
+        _insertData(context, file.path);
+      } else {
+        _scaffoldState.currentState.showSnackBar(
+            SnackBar(content: Text('Gagal menambahkan catatan zakat')));
+      }
     }
   }
 
-  _insertData() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnName: _nameController.text,
-      DatabaseHelper.columnTotal: _totalController.text,
-      DatabaseHelper.columnDate: _date.toIso8601String(),
-      DatabaseHelper.columnImage: ''
-    };
+  _insertData(BuildContext context, String path) async {
+    try {
+      Map<String, dynamic> row = {
+        DatabaseHelper.columnName: _nameController.text,
+        DatabaseHelper.columnTotal: _totalController.text,
+        DatabaseHelper.columnDate: _dateController.text,
+        DatabaseHelper.columnImage: path
+      };
 
-    final id = await dbHelper.insert(row);
-    print('inserted id $id');
-    if (id > 0) {
-      _scaffoldState.currentState.showSnackBar(
-          SnackBar(content: Text('Berhasil menambahkan catatan zakat')));
+      final id = await dbHelper.insert(row);
+      print('inserted id $id');
       Navigator.pop(context);
-    } else {
-      _scaffoldState.currentState.showSnackBar(
-          SnackBar(content: Text('Gagal menambahkan catatan zakat')));
+      if (id > 0) {
+        _scaffoldState.currentState.showSnackBar(
+            SnackBar(content: Text('Berhasil menambahkan catatan zakat')));
+        Navigator.pop(context);
+      } else {
+        _scaffoldState.currentState.showSnackBar(
+            SnackBar(content: Text('Gagal menambahkan catatan zakat')));
+      }
+    } catch (e) {
+      print(e.toString());
+      Navigator.pop(context);
     }
   }
 }
