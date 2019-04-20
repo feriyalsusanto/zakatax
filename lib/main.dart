@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zakatax/home/home.page.dart';
+import 'package:zakatax/splash.page.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomePage(),
+      home: SplashScreenPage(),
     );
   }
 }
