@@ -151,7 +151,7 @@ class _ZakatHartaPageState extends State<ZakatHartaPage> {
       int hutang = int.parse(_hutangController.text);
 
       int total = uang + saham + real + diamond + mobil - hutang;
-      if (total < hargaEmas) {
+      if (total <= 0 || total < hargaEmas) {
         _totalController.text = 'Anda tidak wajib membayar Zakat';
       } else {
         double zakat = total * 0.025;

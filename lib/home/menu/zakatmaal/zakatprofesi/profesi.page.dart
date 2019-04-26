@@ -102,7 +102,11 @@ class _ZakatProfesiPageState extends State<ZakatProfesiPage> {
 
       int total = ((cash + other - hutang) * 0.025).round();
 
-      _totalController.text = 'Rp ${NumberFormatUtil.currencyFormat(total)}';
+      if (total <= 0) {
+        _totalController.text = 'Anda tidak wajib melakukan zakat';
+      } else {
+        _totalController.text = 'Rp ${NumberFormatUtil.currencyFormat(total)}';
+      }
     }
   }
 }

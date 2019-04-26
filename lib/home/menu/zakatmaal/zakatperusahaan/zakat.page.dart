@@ -100,7 +100,7 @@ class _ZakatPerusahaanPageState extends State<ZakatPerusahaanPage> {
       int total =
           (int.parse(_cashController.text) - int.parse(_hutangController.text));
 
-      if (total < gold) {
+      if (total <= 0 || total < gold) {
         _totalController.text = 'Perusahaan anda tidak wajib membayar pajak';
       } else {
         int zakat = (0.025 * total).round();

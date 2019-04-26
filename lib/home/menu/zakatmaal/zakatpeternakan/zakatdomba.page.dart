@@ -86,7 +86,7 @@ class _ZakatDombaPageState extends State<ZakatDombaPage> {
     } else {
       formState.save();
 
-      int minim = 30;
+      int minim = 40;
       int ekor = int.parse(_ekorController.text);
 
       if (ekor >= minim) {
