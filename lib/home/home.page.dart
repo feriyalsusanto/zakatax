@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zakatax/home/history/list.page.dart';
 import 'package:zakatax/home/menu/menu.page.dart';
 import 'package:zakatax/home/setting/setting.page.dart';
-import 'package:zakatax/util/constant.util.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,17 +20,10 @@ class _HomePageState extends State<HomePage> {
   String _title = 'Zakatax';
   int _selectedDrawerIndex = 0;
 
-  SharedPreferences prefs;
-  String savedDate;
-  String savedTime;
-
   _getDrawerItemWidget(int pos) {
-    print(savedDate);
-    print(savedTime);
-
     switch (pos) {
       case 0:
-        return MenuPage(savedDate, savedTime);
+        return MenuPage();
       case 1:
         return HistoryListPage();
       case 2:
@@ -67,13 +58,6 @@ class _HomePageState extends State<HomePage> {
     _key = GlobalKey<ScaffoldState>();
 
     _title = 'Home';
-    Future.delayed(Duration.zero, () async {
-      prefs = await SharedPreferences.getInstance();
-      setState(() {
-        savedDate = prefs.getString(Constant.ALARM_DATE_CONSTANT);
-        savedTime = prefs.getString(Constant.ALARM_TIME_CONSTANT);
-      });
-    });
   }
 
   @override

@@ -1,22 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zakatax/home/menu/infozakat/info.page.dart';
 import 'package:zakatax/home/menu/zakatfitrah/fitrah.page.dart';
 import 'package:zakatax/home/menu/zakatmaal/menu.page.dart';
+import 'package:zakatax/util/constant.util.dart';
 
 import 'catatzakat/catatzakat.page.dart';
 
-class MenuPage extends StatelessWidget {
-  String date;
-  String time;
+class MenuPage extends StatefulWidget {
 
-  MenuPage(this.date, this.time);
+  @override
+  _MenuPageState createState() => _MenuPageState();
+}
+
+class _MenuPageState extends State<MenuPage> {
+  SharedPreferences prefs;
+  String savedDate;
+  String savedTime;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () async {
+      prefs = await SharedPreferences.getInstance();
+      setState(() {
+        savedDate = prefs.getString(Constant.ALARM_DATE_CONSTANT);
+        savedTime = prefs.getString(Constant.ALARM_TIME_CONSTANT);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          date == null
+          savedDate == null
               ? Container()
               : Container(
                   padding: EdgeInsets.all(8.0),
@@ -38,7 +57,7 @@ class MenuPage extends StatelessWidget {
                                   fontSize: 14.0, color: Colors.black),
                             ),
                             Text(
-                              'Tanggal: $date, Pukul: $time',
+                              'Tanggal: $savedDate, Pukul: $savedTime',
                               style:
                                   TextStyle(fontSize: 12.0, color: Colors.grey),
                             )
