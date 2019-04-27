@@ -86,7 +86,9 @@ class _ZakatDombaPageState extends State<ZakatDombaPage> {
     } else {
       formState.save();
 
+      //nishab untuk zakat
       int minim = 40;
+
       int ekor = int.parse(_ekorController.text);
 
       if (ekor >= minim) {

@@ -92,11 +92,16 @@ class _ZakatFitrahPageState extends State<ZakatFitrahPage> {
     if (!formState.validate()) {
     } else {
       formState.save();
+      //harga beras
       int price = int.parse(_priceController.text);
+      //wajib zakat perorang
       double rice = 2.5;
+      //total orang
       int amount = int.parse(_amountController.text);
 
+      //itung zakat berdasarkan (harga beras x 2.5kg) x jumlah orang
       int totalPrice = ((price * rice) * amount).round();
+      //itung zakat berdasarkan beras * jumlah orang
       double totalRice = amount * rice;
 
       _totalController.text =
