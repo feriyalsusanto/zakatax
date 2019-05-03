@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zakatax/home/menu/infozakat/info.page.dart';
+import 'package:zakatax/home/menu/listlembaga/listlembaga.page.dart';
 import 'package:zakatax/home/menu/zakatfitrah/fitrah.page.dart';
 import 'package:zakatax/home/menu/zakatmaal/menu.page.dart';
 import 'package:zakatax/util/constant.util.dart';
@@ -226,6 +227,40 @@ class _MenuPageState extends State<MenuPage> {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       return CatatZakatPage();
+                    }));
+                  },
+                ),
+                InkWell(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  splashColor: Colors.blue,
+                  child: Card(
+                    child: Container(
+                      padding: EdgeInsets.all(16.0),
+                      height: 72.0,
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(right: 12.0),
+                            child: Image.asset(
+                              'assets/ic_list.png',
+                              height: 32.0,
+                              width: 32.0,
+                            ),
+                          ),
+                          Text(
+                            'Daftar Lembaga Zakat',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return ListLembagaPage();
                     }));
                   },
                 ),
