@@ -39,7 +39,7 @@ class _CatatZakatPageState extends State<CatatZakatPage> {
     return Scaffold(
       key: _scaffoldState,
       appBar: AppBar(
-        title: Text('Catat Bukti Zakat'),
+        title: Text('Catatan Zakat Pribadi'),
         actions: <Widget>[
           InkWell(
             child: Container(

@@ -213,7 +213,7 @@ class _MenuPageState extends State<MenuPage> {
                             ),
                           ),
                           Text(
-                            'Catat Bukti Zakat',
+                            'Catatan Zakat Pribadi',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600),
