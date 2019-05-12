@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zakatax/util/NumberFormatUtil.dart';
+import 'package:zakatax/util/appcolors.util.dart';
+import 'package:zakatax/util/textformfield.style.dart';
 
 class ZakatPerusahaanPage extends StatefulWidget {
   @override
@@ -20,72 +22,78 @@ class _ZakatPerusahaanPageState extends State<ZakatPerusahaanPage> {
       appBar: AppBar(
         title: Text('Zakat Perusahaan'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Form(
-              key: _formState,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                      'Zakat Perusahaan adalah zakat yang dikenakan atas perusahaan yang menjalankan usahanya (dapat bertindak secara hukum, '
-                      'memiliki hak dan kewajiban, serta dapat memiliki kekayaan sendiri).'),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Perhitungan Zakat Perusahaan',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.0),
-                    ),
-                  ),
-                  TextFormField(
-                    decoration:
-                        InputDecoration(labelText: 'Harga Emas Saat Ini /Gram'),
-                    keyboardType: TextInputType.number,
-                    controller: _goldController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Aset Perusahaan'),
-                    keyboardType: TextInputType.number,
-                    controller: _cashController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration:
-                        InputDecoration(labelText: 'Hutang Jangka Pendek'),
-                    keyboardType: TextInputType.number,
-                    controller: _hutangController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: RaisedButton(
-                      onPressed: _sumZakat,
-                      color: Colors.blue,
-                      child: Text(
-                        'HITUNG ZAKAT',
-                        style: TextStyle(color: Colors.white),
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Image.asset(
+              'assets/ic_logo.png',
+              color: AppColors.primaryLightColor,
+            ),
+          ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Form(
+                  key: _formState,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        'Zakat Perusahaan adalah zakat yang dikenakan atas perusahaan yang menjalankan usahanya (dapat bertindak secara hukum, '
+                            'memiliki hak dan kewajiban, serta dapat memiliki kekayaan sendiri).', style: TextStyle(color: Colors.white),),
+                      Padding(
+                        padding: EdgeInsets.only(top: 16.0),
+                        child: Text(
+                          'Perhitungan Zakat Perusahaan',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0),
+                        ),
                       ),
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText:
-                            'Total Zakat Perusahaan yang Harus Dikeluarkan'),
-                    keyboardType: TextInputType.number,
-                    enabled: false,
-                    controller: _totalController,
-                  ),
-                ],
-              )),
-        ),
+                      AppTextFormField(
+                        label: 'Harga Emas Saat Ini /Gram',
+                        keyboardType: TextInputType.number,
+                        controller: _goldController,
+                        validator: (val) =>
+                        val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Aset Perusahaan',
+                        keyboardType: TextInputType.number,
+                        controller: _cashController,
+                        validator: (val) =>
+                        val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Hutang Jangka Pendek',
+                        keyboardType: TextInputType.number,
+                        controller: _hutangController,
+                        validator: (val) =>
+                        val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: RaisedButton(
+                          onPressed: _sumZakat,
+                          color: Colors.blue,
+                          child: Text(
+                            'HITUNG ZAKAT',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      AppTextFormField(
+                        label: 'Total Zakat Perusahaan yang Harus Dikeluarkan',
+                        keyboardType: TextInputType.number,
+                        enabled: false,
+                        controller: _totalController,
+                      ),
+                    ],
+                  )),
+            ),
+          )
+        ],
       ),
     );
   }

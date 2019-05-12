@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zakatax/util/NumberFormatUtil.dart';
+import 'package:zakatax/util/appcolors.util.dart';
+import 'package:zakatax/util/textformfield.style.dart';
 
 class ZakatHujanSungaiPage extends StatefulWidget {
   @override
@@ -19,73 +21,86 @@ class _ZakatHujanSungaiPageState extends State<ZakatHujanSungaiPage> {
       appBar: AppBar(
         title: Text('Zakat Pertanian'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Form(
-              key: _formState,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                    'Nisab Zakat Pertanian :',
-                    style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                      'Minimal jumlah hasil tani yang harus dikeluarkan zakatnya adalah 653 kilogram. Zakatnya 10% dari total hasil tani yang anda punya.'),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Perhitungan Zakat Pertanian Air Hujan/Sungai',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.0),
-                    ),
-                  ),
-                  TextFormField(
-                    decoration:
-                        InputDecoration(labelText: 'Pendapatan Hasil Panen'),
-                    keyboardType: TextInputType.number,
-                    controller: _incomeController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Biaya Produksi'),
-                    keyboardType: TextInputType.number,
-                    controller: _productionController,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
-                    child: RaisedButton(
-                      onPressed: _sumZakat,
-                      color: Colors.blue,
-                      child: Text(
-                        'HITUNG ZAKAT',
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Image.asset(
+              'assets/ic_logo.png',
+              color: AppColors.primaryLightColor,
+            ),
+          ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Form(
+                  key: _formState,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        'Nisab Zakat Pertanian :',
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
+                      Text(
+                        'Minimal jumlah hasil tani yang harus dikeluarkan zakatnya adalah 653 kilogram. Zakatnya 10% dari total hasil tani yang anda punya.',
                         style: TextStyle(color: Colors.white),
                       ),
-                    ),
-                  ),
-                  Text(
-                    'Total Zakat Pertanian yang Harus Dikeluarkan',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 8.0, top: 4.0),
-                    child: Text(
-                      _totalController.text,
-                      style: TextStyle(fontSize: 14.0),
-                    ),
-                  ),
-                  Divider(
-                    height: 1.0,
-                    color: Colors.grey,
-                  )
-                ],
-              )),
-        ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 16.0),
+                        child: Text(
+                          'Perhitungan Zakat Pertanian Air Hujan/Sungai',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0),
+                        ),
+                      ),
+                      AppTextFormField(
+                        label: 'Pendapatan Hasil Panen',
+                        keyboardType: TextInputType.number,
+                        controller: _incomeController,
+                        validator: (val) =>
+                        val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Biaya Produksi',
+                        keyboardType: TextInputType.number,
+                        controller: _productionController,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
+                        child: RaisedButton(
+                          onPressed: _sumZakat,
+                          color: Colors.blue,
+                          child: Text(
+                            'HITUNG ZAKAT',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Total Zakat Pertanian yang Harus Dikeluarkan',
+                        style: TextStyle(fontSize: 16.0, color: Colors.white),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 8.0, top: 4.0),
+                        child: Text(
+                          _totalController.text,
+                          style: TextStyle(fontSize: 14.0, color: Colors.white),
+                        ),
+                      ),
+                      Divider(
+                        height: 1.0,
+                        color: Colors.white,
+                      )
+                    ],
+                  )),
+            ),
+          )
+        ],
       ),
     );
   }

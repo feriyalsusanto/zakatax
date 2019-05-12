@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zakatax/util/appcolors.util.dart';
 import 'package:zakatax/util/constant.util.dart';
 
 import '../../home.page.dart';
@@ -68,83 +69,96 @@ class _SettingAlarmPageState extends State<SettingAlarmPage> {
       appBar: AppBar(
         title: Text('Pengaturan Alarm'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-                child: Column(
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Image.asset(
+              'assets/ic_logo.png',
+              color: AppColors.primaryLightColor,
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(bottom: 12.0),
+                Expanded(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 12.0),
+                      child: Text(
+                        'Pengaturan Alarm berfungsi untuk mengatur jadwal bulanan sesuai pengaturan untuk pengingat pembayaran Zakat rutin.',
+                        style: TextStyle(color: Colors.white, fontSize: 14.0),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                    Text(
+                      'Tanggal Tiap Bulan',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: _selectedDate,
+                        items: dates.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (_) {
+                          setState(() {
+                            _selectedDate = _;
+                          });
+                        },
+                      ),
+                    ),
+                    Divider(
+                      height: 1.0,
+                      color: Colors.white,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        'Pukul',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    DateTimePickerFormField(
+                      inputType: InputType.time,
+                      format: formats[0],
+                      editable: true,
+                      decoration: InputDecoration(
+                          labelText:
+                              date != null ? _parseTime(date) : 'Pilih Waktu',
+                          labelStyle: TextStyle(color: Colors.white),
+                          hasFloatingPlaceholder: false,
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.zero),
+                      onChanged: (dt) => setState(() => date = dt),
+                    ),
+                    Divider(
+                      height: 1.0,
+                      color: Colors.white,
+                    ),
+                  ],
+                )),
+                RaisedButton(
+                  onPressed: _showAlertDialog,
                   child: Text(
-                    'Pengaturan Alarm berfungsi untuk mengatur jadwal bulanan sesuai pengaturan untuk pengingat pembayaran Zakat rutin.',
-                    style: TextStyle(color: Colors.black, fontSize: 14.0),
-                    textAlign: TextAlign.justify,
+                    'ATUR ALARM',
+                    style: TextStyle(color: Colors.white),
                   ),
-                ),
-                Text(
-                  'Tanggal Tiap Bulan',
-                  style: TextStyle(color: Colors.grey),
-                ),
-                DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: _selectedDate,
-                    items: dates.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (_) {
-                      setState(() {
-                        _selectedDate = _;
-                      });
-                    },
-                  ),
-                ),
-                Divider(
-                  height: 1.0,
-                  color: Colors.grey,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 16.0),
-                  child: Text(
-                    'Pukul',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ),
-                DateTimePickerFormField(
-                  inputType: InputType.time,
-                  format: formats[0],
-                  editable: true,
-                  decoration: InputDecoration(
-                      labelText:
-                          date != null ? _parseTime(date) : 'Pilih Waktu',
-                      labelStyle: TextStyle(color: Colors.black),
-                      hasFloatingPlaceholder: false,
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.zero),
-                  onChanged: (dt) => setState(() => date = dt),
-                ),
-                Divider(
-                  height: 1.0,
-                  color: Colors.grey,
-                ),
+                  color: Colors.blue,
+                )
               ],
-            )),
-            RaisedButton(
-              onPressed: _showAlertDialog,
-              child: Text(
-                'ATUR ALARM',
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Colors.blue,
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

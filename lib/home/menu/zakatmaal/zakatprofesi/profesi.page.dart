@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zakatax/util/NumberFormatUtil.dart';
+import 'package:zakatax/util/appcolors.util.dart';
+import 'package:zakatax/util/textformfield.style.dart';
 
 class ZakatProfesiPage extends StatefulWidget {
   @override
@@ -20,72 +22,80 @@ class _ZakatProfesiPageState extends State<ZakatProfesiPage> {
       appBar: AppBar(
         title: Text('Profesi'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Form(
-              key: _formState,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                      'Zakat Profesi adalah zakat yang dikeluarkan dari penghasilan profesi (hasil profesi) bila telah mencapai nisab. Profesi tersebut misalnya pegawai negeri atau swasta, konsultan, dokter, notaris, akuntan, artis, dan wiraswasta.'),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Perhitungan Zakat Profesi',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.0),
-                    ),
-                  ),
-                  TextFormField(
-                    decoration:
-                        InputDecoration(labelText: 'Pendapatan Per Bulan'),
-                    keyboardType: TextInputType.number,
-                    controller: _cashController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Pendapatan Tambahan Per Bulan'),
-                    keyboardType: TextInputType.number,
-                    controller: _otherController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Hutang atau Cicilan Per Bulan'),
-                    keyboardType: TextInputType.number,
-                    controller: _hutangController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: RaisedButton(
-                      onPressed: _sumZakat,
-                      color: Colors.blue,
-                      child: Text(
-                        'HITUNG ZAKAT',
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Image.asset(
+              'assets/ic_logo.png',
+              color: AppColors.primaryLightColor,
+            ),
+          ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Form(
+                  key: _formState,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        'Zakat Profesi adalah zakat yang dikeluarkan dari penghasilan profesi (hasil profesi) bila telah mencapai nisab. Profesi tersebut misalnya pegawai '
+                            'negeri atau swasta, konsultan, dokter, notaris, akuntan, artis, dan wiraswasta.',
                         style: TextStyle(color: Colors.white),
                       ),
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText:
-                            'Total Zakat Profesi yang Harus Dikeluarkan'),
-                    keyboardType: TextInputType.number,
-                    enabled: false,
-                    controller: _totalController,
-                  ),
-                ],
-              )),
-        ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 16.0),
+                        child: Text(
+                          'Perhitungan Zakat Profesi',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0),
+                        ),
+                      ),
+                      AppTextFormField(
+                        label: 'Pendapatan Per Bulan',
+                        keyboardType: TextInputType.number,
+                        controller: _cashController,
+                        validator: (val) =>
+                        val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Pendapatan Tambahan Per Bulan',
+                        keyboardType: TextInputType.number,
+                        controller: _otherController,
+                        validator: (val) =>
+                        val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Hutang atau Cicilan Per Bulan',
+                        keyboardType: TextInputType.number,
+                        controller: _hutangController,
+                        validator: (val) =>
+                        val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: RaisedButton(
+                          onPressed: _sumZakat,
+                          color: Colors.blue,
+                          child: Text(
+                            'HITUNG ZAKAT',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      AppTextFormField(
+                        label: 'Total Zakat Profesi yang Harus Dikeluarkan',
+                        keyboardType: TextInputType.number,
+                        enabled: false,
+                        controller: _totalController,
+                      ),
+                    ],
+                  )),
+            ),
+          )
+        ],
       ),
     );
   }

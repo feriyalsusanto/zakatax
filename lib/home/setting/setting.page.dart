@@ -18,7 +18,7 @@ class SettingPage extends StatelessWidget {
       ListData(null, 'divider', TYPE_DIVIDER),
       ListData(null, 'Lain-Lain', TYPE_HEADER),
       ListData(Icons.info, 'Tentang Aplikasi', TYPE_MENU),
-      ListData(Icons.info, 'Tentang Kami', TYPE_MENU)
+      ListData(Icons.info, 'Tentang Saya', TYPE_MENU)
     ];
   }
 
@@ -50,7 +50,7 @@ class SettingPage extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-            fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.grey),
+            fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.white),
       ),
     );
   }
@@ -60,25 +60,25 @@ class SettingPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         ListTile(
-          leading: Icon(icon),
+          leading: Icon(
+            icon,
+            color: Colors.white,
+          ),
           title: Text(
             title,
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.white),
           ),
           onTap: () {
             if (title.toLowerCase().contains('pengingat')) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                 return SettingAlarmPage();
               }));
             } else if (title.toLowerCase().contains('aplikasi')) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                 return AboutAppPage();
               }));
-            } else if (title.toLowerCase().contains('kami')) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) {
+            } else if (title.toLowerCase().contains('saya')) {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                 return AboutUsPage();
               }));
             }
@@ -86,7 +86,7 @@ class SettingPage extends StatelessWidget {
         ),
         Divider(
           height: 1.0,
-          color: Colors.grey,
+          color: Colors.white,
         )
       ],
     );

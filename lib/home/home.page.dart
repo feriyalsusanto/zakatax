@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zakatax/home/history/list.page.dart';
 import 'package:zakatax/home/menu/menu.page.dart';
 import 'package:zakatax/home/setting/setting.page.dart';
+import 'package:zakatax/util/appcolors.util.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: AppColors.primaryColors,
         ),
       )
     ];
@@ -80,8 +81,14 @@ class _HomePageState extends State<HomePage> {
     for (var i = 0; i < drawerItems.length; i++) {
       var d = drawerItems[i];
       drawerOptions.add(new ListTile(
-        leading: new Icon(d.icon),
-        title: new Text(d.title),
+        leading: new Icon(
+          d.icon,
+          color: Colors.white,
+        ),
+        title: new Text(
+          d.title,
+          style: TextStyle(color: Colors.white),
+        ),
         selected: i == _selectedDrawerIndex,
         onTap: () => _onSelectItem(i),
       ));
@@ -89,8 +96,10 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       key: _key,
+      backgroundColor: AppColors.primaryColors,
       appBar: AppBar(
         title: Text(_title),
+        elevation: 0.0,
       ),
       drawer: Drawer(
         child: ListView(
@@ -98,7 +107,17 @@ class _HomePageState extends State<HomePage> {
           children: drawerOptions,
         ),
       ),
-      body: _getDrawerItemWidget(_selectedDrawerIndex),
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Image.asset(
+              'assets/ic_logo.png',
+              color: AppColors.primaryLightColor,
+            ),
+          ),
+          _getDrawerItemWidget(_selectedDrawerIndex)
+        ],
+      ),
     );
   }
 }

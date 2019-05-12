@@ -34,41 +34,45 @@ class HistoryListPage extends StatelessWidget {
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(data['name']),
+                        Text(
+                          data['name'],
+                          style: TextStyle(color: Colors.white),
+                        ),
                         Text(
                           data['date'] == null ? '-' : data['date'],
-                          style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                          style: TextStyle(fontSize: 14.0, color: Colors.white),
                         )
                       ],
                     ),
                     subtitle: Text(
                       'Jumlah Zakat: Rp ${NumberFormatUtil.currencyFormat(int.parse(data['total']))}',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                      style: TextStyle(fontSize: 12.0, color: Colors.white),
                     ),
                   );
                 },
                 separatorBuilder: (context, i) => Divider(
-                      color: Colors.grey,
+                      color: Colors.white,
                       height: 1.0,
                     ),
                 itemCount: list.length);
           } else {
-            return Center(
-              child: Column(
-                children: <Widget>[
-                  Icon(
-                    Icons.warning,
-                    size: 42.0,
-                    color: Colors.grey,
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.warning,
+                  size: 96.0,
+                  color: Colors.white,
+                ),
+                Text(
+                  'History Zakat Kosong',
+                  style: TextStyle(
+                    color: Colors.white,
                   ),
-                  Text(
-                    'History Zakat Kosong',
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  )
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                )
+              ],
             );
           }
         }

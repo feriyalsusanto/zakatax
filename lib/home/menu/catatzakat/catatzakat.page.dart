@@ -4,11 +4,13 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
+import 'package:zakatax/util/appcolors.util.dart';
 import 'package:zakatax/util/database.util.dart';
 import 'package:zakatax/util/dateformat.util.dart';
 import 'package:zakatax/util/loader.util.dart';
 import 'package:zakatax/util/path.util.dart';
-import 'package:path/path.dart';
+import 'package:zakatax/util/textformfield.style.dart';
 
 class CatatZakatPage extends StatefulWidget {
   @override
@@ -52,71 +54,86 @@ class _CatatZakatPageState extends State<CatatZakatPage> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(16.0),
-          child: Form(
-              key: _formState,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                    'Silahkan isi dengan lengkap form dibawah untuk pencatatan transaksi zakat yang anda lakukan.',
-                    textAlign: TextAlign.justify,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Nama Yayasan Penerima Zakat'),
-                    keyboardType: TextInputType.text,
-                    controller: _nameController,
-                    validator: (val) =>
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Image.asset(
+              'assets/ic_logo.png',
+              color: AppColors.primaryLightColor,
+            ),
+          ),
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(16.0),
+              child: Form(
+                  key: _formState,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        'Silahkan isi dengan lengkap form dibawah untuk pencatatan transaksi zakat yang anda lakukan.',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      AppTextFormField(
+                        label: 'Nama Yayasan Penerima Zakat',
+                        keyboardType: TextInputType.text,
+                        controller: _nameController,
+                        validator: (val) =>
                         val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Jumlah Zakat'),
-                    keyboardType: TextInputType.number,
-                    controller: _totalController,
-                    validator: (val) =>
+                      ),
+                      AppTextFormField(
+                        label: 'Jumlah Zakat',
+                        keyboardType: TextInputType.number,
+                        controller: _totalController,
+                        validator: (val) =>
                         val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  DateTimePickerFormField(
-                    controller: _dateController,
-                    inputType: InputType.date,
-                    format: _formats[0],
-                    editable: true,
-                    decoration: InputDecoration(
-                        labelText: 'Tanggal', hasFloatingPlaceholder: true),
-                    onChanged: (dt) => setState(() {
+                      ),
+                      DateTimePickerFormField(
+                        controller: _dateController,
+                        inputType: InputType.date,
+                        format: _formats[0],
+                        editable: true,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            labelText: 'Tanggal',
+                            hasFloatingPlaceholder: true,
+                            labelStyle: TextStyle(color: Colors.white),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white))),
+                        onChanged: (dt) => setState(() {
                           _date = dt;
                           _dateController.text =
                               DateFormatUtil.parseDateTimeLocal(_date);
                         }),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: RaisedButton(
-                      onPressed: () {
-                        _getImage();
-                      },
-                      child: Text(
-                        'UPLOAD BUKTI ZAKAT (OPSIONAL)',
-                        style: TextStyle(color: Colors.white, fontSize: 12.0),
                       ),
-                      color: Colors.blue,
-                    ),
-                  ),
-                  Container(
-                    height: 240.0,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.blue, width: 1.0),
-                        borderRadius: BorderRadius.all(Radius.circular(4.0))),
-                    alignment: Alignment.center,
-                    child: _generatePreview(),
-                  )
-                ],
-              )),
-        ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: RaisedButton(
+                          onPressed: () {
+                            _getImage();
+                          },
+                          child: Text(
+                            'UPLOAD BUKTI ZAKAT (OPSIONAL)',
+                            style: TextStyle(color: Colors.white, fontSize: 12.0),
+                          ),
+                          color: Colors.blue,
+                        ),
+                      ),
+                      Container(
+                        height: 240.0,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                        alignment: Alignment.center,
+                        child: _generatePreview(),
+                      )
+                    ],
+                  )),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zakatax/util/NumberFormatUtil.dart';
+import 'package:zakatax/util/appcolors.util.dart';
+import 'package:zakatax/util/textformfield.style.dart';
 
 class ZakatHartaPage extends StatefulWidget {
   @override
@@ -23,115 +25,115 @@ class _ZakatHartaPageState extends State<ZakatHartaPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Harta Simpanan'),
+        elevation: 0.0,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(16.0),
-          child: Form(
-              key: _formState,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                    'Nisab Zakat Harta Simpanan :',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  Text(
-                    'Minimal jumlah Harta Simpanan yang harus dikeluarkan zakatnya adalah setara dengan 85 gram emas murni. '
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Image.asset(
+              'assets/ic_logo.png',
+              color: AppColors.primaryLightColor,
+            ),
+          ),
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(16.0),
+              child: Form(
+                  key: _formState,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        'Nisab Zakat Harta Simpanan :',
+                        style: TextStyle(fontSize: 16.0, color: Colors.white),
+                      ),
+                      Text(
+                        'Minimal jumlah Harta Simpanan yang harus dikeluarkan zakatnya adalah setara dengan 85 gram emas murni. '
                         'Zakatnya 2.5% dari total Harga Simpanan yang anda punya.',
-                    textAlign: TextAlign.justify,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Perhitungan Zakat Harta Simpanan',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.0),
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Harga Emas Murni Saat Ini /Gram'),
-                    keyboardType: TextInputType.number,
-                    controller: _goldController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Harga Emas harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText:
-                            'Uang Tunai, Tabungan, Deposito atau sejenisnya'),
-                    keyboardType: TextInputType.number,
-                    controller: _moneyController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Saham atau surat-surat berharga lainnya'),
-                    keyboardType: TextInputType.number,
-                    controller: _sahamController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText:
-                            'Real Estate (tidak termasuk rumah tinggal yang dipakai sekarang)'),
-                    keyboardType: TextInputType.number,
-                    controller: _realController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Emas, Perak, Permata atau sejenisnya'),
-                    keyboardType: TextInputType.number,
-                    controller: _diamondController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText:
-                            'Mobil (lebih dari keperluan anggota keluarga)'),
-                    keyboardType: TextInputType.number,
-                    controller: _vehicleController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText:
-                            'Hutang Pribadi yg jatuh tempo dalam tahun ini'),
-                    keyboardType: TextInputType.number,
-                    controller: _hutangController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: RaisedButton(
-                      onPressed: _sumZakat,
-                      color: Colors.blue,
-                      child: Text(
-                        'HITUNG ZAKAT',
+                        textAlign: TextAlign.justify,
                         style: TextStyle(color: Colors.white),
                       ),
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText:
-                            'Total Zakat Simpanan yang Harus Dikeluarkan'),
-                    enabled: false,
-                    controller: _totalController,
-                  ),
-                ],
-              )),
-        ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 16.0),
+                        child: Text(
+                          'Perhitungan Zakat Harta Simpanan',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0),
+                        ),
+                      ),
+                      AppTextFormField(
+                        label: 'Harga Emas Murni Saat Ini /Gram',
+                        keyboardType: TextInputType.number,
+                        controller: _goldController,
+                        validator: (val) =>
+                            val.isEmpty ? 'Harga Emas harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Uang Tunai, Tabungan, Deposito atau sejenisnya',
+                        keyboardType: TextInputType.number,
+                        controller: _moneyController,
+                        validator: (val) =>
+                            val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Saham atau surat-surat berharga lainnya',
+                        keyboardType: TextInputType.number,
+                        controller: _sahamController,
+                        validator: (val) =>
+                            val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label:
+                            'Real Estate (tidak termasuk rumah tinggal yang dipakai sekarang)',
+                        keyboardType: TextInputType.number,
+                        controller: _realController,
+                        validator: (val) =>
+                            val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Emas, Perak, Permata atau sejenisnya',
+                        keyboardType: TextInputType.number,
+                        controller: _diamondController,
+                        validator: (val) =>
+                            val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Mobil (lebih dari keperluan anggota keluarga)',
+                        keyboardType: TextInputType.number,
+                        controller: _vehicleController,
+                        validator: (val) =>
+                            val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Hutang Pribadi yg jatuh tempo dalam tahun ini',
+                        keyboardType: TextInputType.number,
+                        controller: _hutangController,
+                        validator: (val) =>
+                            val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: RaisedButton(
+                          onPressed: _sumZakat,
+                          color: Colors.blue,
+                          child: Text(
+                            'HITUNG ZAKAT',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      AppTextFormField(
+                        label: 'Total Zakat Simpanan yang Harus Dikeluarkan',
+                        enabled: false,
+                        controller: _totalController,
+                      ),
+                    ],
+                  )),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -155,7 +157,8 @@ class _ZakatHartaPageState extends State<ZakatHartaPage> {
         _totalController.text = 'Anda tidak wajib membayar Zakat';
       } else {
         double zakat = total * 0.025;
-        _totalController.text = 'Rp ${NumberFormatUtil.currencyFormat(zakat.round())}';
+        _totalController.text =
+            'Rp ${NumberFormatUtil.currencyFormat(zakat.round())}';
       }
     }
   }

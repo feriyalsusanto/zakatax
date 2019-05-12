@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zakatax/util/NumberFormatUtil.dart';
+import 'package:zakatax/util/appcolors.util.dart';
+import 'package:zakatax/util/textformfield.style.dart';
 
 class ZakatFitrahPage extends StatefulWidget {
   @override
@@ -18,71 +20,84 @@ class _ZakatFitrahPageState extends State<ZakatFitrahPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: AppColors.primaryColors,
       appBar: AppBar(
         title: Text('Zakat Fitrah'),
+        elevation: 0.0,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Form(
-              key: _formState,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                      'Zakat fitrah adalah salah satu kewajiban sebagai seorang muslim baik itu laki-laki maupun perempuan. Oleh karena itu, Allah SWT '
-                      'telah memerintahkan kita untuk selalu menunaikan zakat fitrah sesuai dengan waktunya.'),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Perhitungan Zakat Fitrah',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.0),
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Harga Beras /Kg'),
-                    keyboardType: TextInputType.number,
-                    controller: _priceController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Harga Beras harus diisi' : null,
-                  ),
-                  TextFormField(
-                    decoration:
-                        InputDecoration(labelText: 'Zakat Fitrah (2.5 Kg)'),
-                    keyboardType: TextInputType.number,
-                    enabled: false,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Jumlah Orang'),
-                    keyboardType: TextInputType.number,
-                    controller: _amountController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Jumlah Orang harus diisi' : null,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: RaisedButton(
-                      onPressed: _sumZakat,
-                      color: Colors.blue,
-                      child: Text(
-                        'HITUNG ZAKAT',
-                        style: TextStyle(color: Colors.white),
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Image.asset(
+              'assets/ic_logo.png',
+              color: AppColors.primaryLightColor,
+            ),
+          ),
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(16.0),
+              child: Form(
+                  key: _formState,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                          'Zakat fitrah adalah salah satu kewajiban sebagai seorang muslim baik itu laki-laki maupun perempuan. Oleh karena itu, Allah SWT '
+                          'telah memerintahkan kita untuk selalu menunaikan zakat fitrah sesuai dengan waktunya.',
+                          style: TextStyle(
+                            color: Colors.white,
+                          )),
+                      Padding(
+                        padding: EdgeInsets.only(top: 16.0),
+                        child: Text(
+                          'Perhitungan Zakat Fitrah',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0),
+                        ),
                       ),
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Total Zakat Fitrah yang Harus Dikeluarkan'),
-                    keyboardType: TextInputType.number,
-                    enabled: false,
-                    controller: _totalController,
-                  ),
-                ],
-              )),
-        ),
+                      AppTextFormField(
+                        label: 'Harga Beras /Kg',
+                        keyboardType: TextInputType.number,
+                        controller: _priceController,
+                        validator: (val) =>
+                            val.isEmpty ? 'Harga Beras harus diisi' : null,
+                      ),
+                      AppTextFormField(
+                        label: 'Zakat Fitrah (2.5 Kg)',
+                        keyboardType: TextInputType.number,
+                        enabled: false,
+                      ),
+                      AppTextFormField(
+                        label: 'Jumlah Orang',
+                        keyboardType: TextInputType.number,
+                        controller: _amountController,
+                        validator: (val) =>
+                            val.isEmpty ? 'Jumlah Orang harus diisi' : null,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: RaisedButton(
+                          onPressed: _sumZakat,
+                          color: Colors.blue,
+                          child: Text(
+                            'HITUNG ZAKAT',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      AppTextFormField(
+                        label: 'Total Zakat Fitrah yang Harus Dikeluarkan',
+                        keyboardType: TextInputType.number,
+                        enabled: false,
+                        controller: _totalController,
+                      ),
+                    ],
+                  )),
+            ),
+          )
+        ],
       ),
     );
   }

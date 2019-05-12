@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zakatax/util/appcolors.util.dart';
+import 'package:zakatax/util/textformfield.style.dart';
 
 class ZakatUntaPage extends StatefulWidget {
   @override
@@ -17,65 +19,76 @@ class _ZakatUntaPageState extends State<ZakatUntaPage> {
       appBar: AppBar(
         title: Text('Ternak Unta'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Form(
-              key: _formState,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                      'Seseorang bila memiliki binatang ternak, baik unta, sapi, atau kambing, mempunyai kemungkinan untuk kena wajib zakat. '
-                      'Kewajiban tersebut jatuh salah satunya bila jumlahnya telah mencapai nishab atau batas minumum wajib zakat. '
-                      'Berikut adalah daftar nishab masing-masing binatang ternak dengan detail jumlah zakat dan umur binatang ternak yang mesti dikeluarkan.'),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Perhitungan Zakat Ternak Unta',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.0),
-                    ),
-                  ),
-                  TextFormField(
-                    decoration:
-                        InputDecoration(labelText: 'Jumlah Hewan Ternak Unta'),
-                    keyboardType: TextInputType.number,
-                    controller: _ekorController,
-                    validator: (val) =>
-                        val.isEmpty ? 'Field ini harus diisi' : null,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
-                    child: RaisedButton(
-                      onPressed: _sumZakat,
-                      color: Colors.blue,
-                      child: Text(
-                        'HITUNG ZAKAT',
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Image.asset(
+              'assets/ic_logo.png',
+              color: AppColors.primaryLightColor,
+            ),
+          ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Form(
+                  key: _formState,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        'Seseorang bila memiliki binatang ternak, baik unta, sapi, atau kambing, mempunyai kemungkinan untuk kena wajib zakat. '
+                            'Kewajiban tersebut jatuh salah satunya bila jumlahnya telah mencapai nishab atau batas minumum wajib zakat. '
+                            'Berikut adalah daftar nishab masing-masing binatang ternak dengan detail jumlah zakat dan umur binatang ternak yang mesti dikeluarkan.',
                         style: TextStyle(color: Colors.white),
                       ),
-                    ),
-                  ),
-                  Text(
-                    'Total Zakat Ternak Unta yang Harus Dikeluarkan',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 8.0, top: 4.0),
-                    child: Text(
-                      _totalController.text,
-                      style: TextStyle(fontSize: 14.0),
-                    ),
-                  ),
-                  Divider(
-                    height: 1.0,
-                    color: Colors.grey,
-                  )
-                ],
-              )),
-        ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 16.0),
+                        child: Text(
+                          'Perhitungan Zakat Ternak Unta',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0),
+                        ),
+                      ),
+                      AppTextFormField(
+                        label: 'Jumlah Hewan Ternak Unta',
+                        keyboardType: TextInputType.number,
+                        controller: _ekorController,
+                        validator: (val) =>
+                        val.isEmpty ? 'Field ini harus diisi' : null,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
+                        child: RaisedButton(
+                          onPressed: _sumZakat,
+                          color: Colors.blue,
+                          child: Text(
+                            'HITUNG ZAKAT',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Total Zakat Ternak Unta yang Harus Dikeluarkan',
+                        style: TextStyle(fontSize: 16.0, color: Colors.white),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 8.0, top: 4.0),
+                        child: Text(
+                          _totalController.text,
+                          style: TextStyle(fontSize: 14.0, color: Colors.white),
+                        ),
+                      ),
+                      Divider(
+                        height: 1.0,
+                        color: Colors.white,
+                      )
+                    ],
+                  )),
+            ),
+          )
+        ],
       ),
     );
   }

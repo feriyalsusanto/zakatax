@@ -81,7 +81,7 @@ class _MenuPageState extends State<MenuPage> {
                     style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
-                        color: Colors.grey),
+                        color: Colors.white),
                   ),
                 ),
                 InkWell(
@@ -193,7 +193,7 @@ class _MenuPageState extends State<MenuPage> {
                     style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
-                        color: Colors.grey),
+                        color: Colors.white),
                   ),
                 ),
                 InkWell(

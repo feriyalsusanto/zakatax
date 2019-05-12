@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zakatax/util/appcolors.util.dart';
 
 class ListLembagaPage extends StatefulWidget {
   @override
@@ -51,38 +52,55 @@ class _ListLembagaPageState extends State<ListLembagaPage> {
       appBar: AppBar(
         title: Text('Daftar Lembaga Zakat'),
       ),
-      body: ListView.separated(
-        itemCount: _list.length,
-        itemBuilder: (context, position) {
-          LembagaModel lembaga = _list[position];
-          return ListTile(
-            contentPadding: EdgeInsets.all(8.0),
-            title: Text(
-              lembaga.title,
-              style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600),
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Image.asset(
+              'assets/ic_logo.png',
+              color: AppColors.primaryLightColor,
             ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  lembaga.address,
-                  textAlign: TextAlign.justify,
+          ),
+          ListView.separated(
+            itemCount: _list.length,
+            itemBuilder: (context, position) {
+              LembagaModel lembaga = _list[position];
+              return ListTile(
+                contentPadding: EdgeInsets.all(8.0),
+                title: Text(
+                  lembaga.title,
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600),
                 ),
-                Text('Telp.: ${lembaga.contact.phone}'),
-                Text('Fax: ${lembaga.contact.fax}'),
-              ],
-            ),
-          );
-        },
-        separatorBuilder: (context, position) {
-          return Divider(
-            height: 1.0,
-            color: Colors.grey,
-          );
-        },
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      lembaga.address,
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      'Telp.: ${lembaga.contact.phone}',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      'Fax: ${lembaga.contact.fax}',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              );
+            },
+            separatorBuilder: (context, position) {
+              return Divider(
+                height: 1.0,
+                color: Colors.white,
+              );
+            },
+          )
+        ],
       ),
     );
   }
