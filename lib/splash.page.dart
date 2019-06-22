@@ -55,6 +55,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         });
   }
 
+  //create folder untuk nyimpen foto
   _createDirectory() async {
     Directory appDirectory = await getApplicationDocumentsDirectory();
     String path = appDirectory.path + '/' + 'zakatax';
