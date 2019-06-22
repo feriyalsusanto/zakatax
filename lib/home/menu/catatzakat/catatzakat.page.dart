@@ -156,7 +156,7 @@ class _CatatZakatPageState extends State<CatatZakatPage> {
 
   Future _getImage() async {
     try {
-      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+      var image = await ImagePicker.pickImage(source: ImageSource.camera);
       setState(() {
         _image = image;
       });
